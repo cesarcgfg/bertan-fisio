@@ -3,7 +3,7 @@
 Landing de una clínica de fisioterapia ficticia en Indautxu, Bilbao. Es una prueba técnica para Alma Digital. La página tiene un único objetivo: que la persona reserve su primera valoración.
 
 - Web: https://bertan-fisio.vercel.app/
-- Repositorio: https://github.com/Diferente-Web/berta-fisio
+- Repositorio: https://github.com/cesarcgfg/berta-fisio
 
 HTML, CSS y JavaScript puro. Sin frameworks, sin librerías, sin CDN y sin peticiones a terceros.
 
@@ -129,17 +129,18 @@ Fuentes tipográficas: [Fraunces](https://github.com/undercasetype/Fraunces) e [
 6. Teclado: Tab desde el principio (saltar al contenido, menú, enlaces), Escape con el menú abierto, Enter y Espacio en las preguntas, y envío del formulario vacío, con errores y correcto.
 7. Rendimiento real: PageSpeed Insights móvil sobre la URL pública.
 
-## Resultados (local, antes de publicar)
+## Resultados
 
 | Prueba | Resultado |
 |---|---|
+| **PageSpeed Insights, móvil, URL pública (8 oct 2026)** | **Rendimiento 99 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100** · FCP 1,1 s · LCP 1,7 s · TBT 0 ms · CLS 0 |
 | Validador del W3C | 0 errores, 0 avisos |
 | Validador de schema.org | 0 errores |
-| Lighthouse móvil (mediana de 3 corridas) | Rendimiento 98 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100 |
+| Lighthouse móvil en local (mediana de 3 corridas) | Rendimiento 98 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100 |
 | Métricas | LCP 2,3 s · CLS 0 · TBT 0 ms · 10 peticiones · 0 a terceros |
 | Anchos 360, 768, 1024 y 1440 | Sin scroll horizontal |
 
-El servidor local no comprime ni cachea. En Vercel se suman la compresión y las cabeceras de `vercel.json`.
+En local, Lighthouse da 98 de rendimiento porque el servidor no comprime ni cachea. En Vercel se suman la compresión y las cabeceras de `vercel.json`.
 
 ## Herramientas
 
