@@ -3,7 +3,7 @@
 Landing de una clínica de fisioterapia ficticia en Indautxu, Bilbao. Es una prueba técnica para Alma Digital. La página tiene un único objetivo: que la persona reserve su primera valoración.
 
 - Web: https://bertan-fisio.vercel.app/
-- Repositorio: https://github.com/cesarcgfg/berta-fisio
+- Repositorio: https://github.com/cesarcgfg/bertan-fisio
 
 HTML, CSS y JavaScript puro. Sin frameworks, sin librerías, sin CDN y sin peticiones a terceros.
 
