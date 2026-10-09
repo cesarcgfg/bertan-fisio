@@ -133,7 +133,7 @@ Fuentes tipográficas: [Fraunces](https://github.com/undercasetype/Fraunces) e [
 
 | Prueba | Resultado |
 |---|---|
-| **PageSpeed Insights, móvil, URL pública (8 oct 2026)** | **Rendimiento 99 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100** · FCP 1,1 s · LCP 1,7 s · TBT 0 ms · CLS 0 |
+| **[PageSpeed Insights](https://pagespeed.web.dev/analysis/https-bertan-fisio-vercel-app/lpns20sxzy?form_factor=mobile), móvil, URL pública (8 oct 2026)** | **Rendimiento 100 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100** · FCP 1,1 s · LCP 1,8 s · TBT 0 ms · CLS 0 |
 | Validador del W3C | 0 errores, 0 avisos |
 | Validador de schema.org | 0 errores |
 | Lighthouse móvil en local (mediana de 3 corridas) | Rendimiento 98 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100 |
