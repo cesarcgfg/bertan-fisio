@@ -1,0 +1,29 @@
+# Bertan Fisio
+
+> Clínica de fisioterapia en Indautxu, Bilbao. Sesiones de 50 minutos, siempre con el mismo fisioterapeuta. La primera valoración cuesta 50 €.
+
+Bertan significa «aquí» en euskera. Atendemos a adultos que trabajan, hacen deporte y quieren dejar de arrastrar una molestia. La primera sesión empieza con una conversación y una valoración completa.
+
+## Servicios
+
+- Fisioterapia deportiva: vuelve a entrenar sin miedo, con un plan adaptado a tu deporte.
+- Suelo pélvico: valoración y tratamiento en un espacio privado y tranquilo.
+- Readaptación de lesiones: del alta médica a tu vida normal, paso a paso.
+
+## Precio y condiciones
+
+- 50 € la sesión de 50 minutos. La primera valoración también cuesta 50 €.
+- No hace falta prescripción médica.
+- No trabajamos con mutuas: entregamos factura para presentarla al seguro.
+
+## Dónde y cuándo
+
+- Dirección: Calle Ejemplo 12, 48011 Bilbao (Indautxu)
+- Horario: lunes a viernes de 8:00 a 20:00
+- Teléfono: +34 600 000 000
+- Correo: hola@bertanfisio.es
+
+## Cómo reservar
+
+- [Formulario de reserva de la primera valoración](https://bertan-fisio.vercel.app/#reservar)
+- También por teléfono o por correo.

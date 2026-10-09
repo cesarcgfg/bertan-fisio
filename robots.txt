@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bertan-fisio.vercel.app/sitemap.xml

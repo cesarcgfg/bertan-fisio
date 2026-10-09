@@ -1,0 +1,1627 @@
+/* ==========================================================================
+   Bertan Fisio · styles.css
+   1. Fuentes · 2. Tokens · 3. Reset · 4. Base · 5. Layout
+   6. Componentes · 7. Utilidades
+   Mobile first. Cambio de esquema a 50rem (800 px). Las media queries
+   no admiten variables: 50rem es el único corte del diseño.
+   ========================================================================== */
+
+
+/* 1. Fuentes
+   ========================================================================== */
+
+/* Fraunces variable recortada a 400–500 (opsz conservado, SOFT 0, WONK 1) */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-latin.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-italic-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-400-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-600-latin.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Respaldos ajustados a las métricas de las web fonts (evitan saltos al cargar) */
+@font-face {
+  font-family: "Fraunces Fallback";
+  src: local("Georgia");
+  font-style: normal;
+  size-adjust: 107.41%;
+  ascent-override: 91.05%;
+  descent-override: 23.74%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Fraunces Fallback";
+  src: local("Georgia Italic"), local("Georgia-Italic");
+  font-style: italic;
+  size-adjust: 99.75%;
+  ascent-override: 98.05%;
+  descent-override: 25.56%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 106.08%;
+  ascent-override: 91.33%;
+  descent-override: 22.74%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 600;
+  size-adjust: 101.13%;
+  ascent-override: 95.79%;
+  descent-override: 23.85%;
+  line-gap-override: 0%;
+}
+
+
+/* 2. Tokens (bertan-tokens.css)
+   1rem = 16px · móvil 360 px · escritorio 1440 px
+   Valores fluidos: clamp(móvil, escritorio ÷ 1440 × 100 vw, escritorio).
+   ========================================================================== */
+
+:root {
+  /* 01 · Color */
+  --color-arena: #F4F1EC;      /* fondo */
+  --color-texto: #1E2A2B;      /* texto */
+  --color-verde: #2F5D50;      /* principal */
+  --color-terracota: #E07A4F;  /* solo botón principal */
+  --verde-06: rgba(47, 93, 80, 0.06);
+  --verde-12: rgba(47, 93, 80, 0.12);
+  --texto-12: rgba(30, 42, 43, 0.12);
+  --texto-18: rgba(30, 42, 43, 0.18);
+  --texto-45: rgba(30, 42, 43, 0.45);
+  --texto-55: rgba(30, 42, 43, 0.55);
+  --arena-32: rgba(244, 241, 236, 0.32);
+
+  /* 02 · Tipografía */
+  --font-serif: "Fraunces", "Fraunces Fallback", Georgia, serif;
+  --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
+  --fw-serif: 400;            /* también en cursiva */
+  --fw-serif-medium: 500;
+  --fw-sans: 400;
+  --fw-sans-semibold: 600;
+
+  --fs-h1: clamp(2.375rem, 5.28vw, 4.75rem);      /* 38 → 76 */
+  --fs-h2: clamp(1.875rem, 3.33vw, 3rem);         /* 30 → 48 */
+  --fs-h3: clamp(1.25rem, 1.67vw, 1.5rem);        /* 20 → 24 */
+  --fs-step: clamp(2.375rem, 5.28vw, 4.75rem);    /* 76 en escritorio */
+  --fs-step-inline: 1.75rem;                      /* 28 en móvil, junto al h3 */
+  --fs-price: clamp(3.5rem, 5.28vw, 4.75rem);     /* 56 → 76 */
+  --fs-logo: clamp(1.1875rem, 1.8vw, 1.625rem);   /* 19 → 26 */
+  --fs-lead: clamp(1rem, 1.25vw, 1.125rem);       /* 16 → 18 */
+  --fs-body: 1rem;                                /* 16 */
+  --fs-small: 0.875rem;                           /* 14 */
+  --fs-label: 0.875rem;                           /* 14 */
+  --fs-eyebrow: 0.8125rem;                        /* 13 */
+  --fs-button: 1rem;                              /* 16 */
+  --fs-button-header: 0.8125rem;                  /* 13 móvil · 0.9375rem (15) escritorio */
+  --fs-link: 0.9375rem;                           /* 15 móvil · 1rem (16) escritorio */
+  --fs-nav: 0.9375rem;                            /* 15 escritorio */
+  --fs-nav-menu: 1.0625rem;                       /* 17 menú móvil */
+  --fs-data: clamp(0.9375rem, 1.11vw, 1rem);      /* 15 → 16 */
+  --fs-chip: clamp(1rem, 1.18vw, 1.0625rem);      /* 16 → 17 */
+  --fs-check: 0.9375rem;                          /* 15 */
+
+  --lh-none: 1;
+  --lh-price: 1.05;
+  --lh-h1: 1.08;              /* escritorio 1.06 */
+  --lh-h2: 1.1;
+  --lh-h3: 1.25;
+  --lh-ui: 1.4;
+  --lh-small: 1.5;
+  --lh-body: 1.6;
+
+  --ls-h1: -0.02em;           /* escritorio -0.025em */
+  --ls-heading: -0.02em;
+  --ls-logo: -0.01em;
+  --ls-eyebrow: 0.08em;
+
+  /* 03 · Espacios */
+  --space-3xs: 0.25rem;   /* 4 */
+  --space-2xs: 0.5rem;    /* 8 */
+  --space-xs: 0.75rem;    /* 12 */
+  --space-sm: 1rem;       /* 16 */
+  --space-md: 1.25rem;    /* 20 */
+  --space-lg: 1.5rem;     /* 24 */
+  --space-xl: 2rem;       /* 32 */
+  --space-2xl: 2.5rem;    /* 40 */
+  --space-3xl: 3rem;      /* 48 */
+  --space-4xl: 4rem;      /* 64 */
+  --space-5xl: 5rem;      /* 80 */
+  --space-6xl: 8rem;      /* 128 */
+  --section-y: clamp(4.5rem, 8.9vw, 8rem);        /* 72 → 128 */
+  --section-gap: clamp(2.5rem, 4.4vw, 4rem);      /* 40 → 64 */
+  --card-inset: 0.625rem;                         /* 10 */
+  --card-pad-bottom: 1.75rem;                     /* 28 */
+  --chip-pad-y: clamp(0.875rem, 1.39vw, 1.25rem); /* 14 → 20 */
+  --chip-pad-x: clamp(1rem, 1.67vw, 1.5rem);      /* 16 → 24 */
+  --form-pad: clamp(1.5rem, 3.33vw, 3rem);        /* 24 → 48 */
+  --data-pad-y: clamp(1.5rem, 1.95vw, 1.75rem);   /* 24 → 28 */
+
+  /* 04 · Layout */
+  --page-max: 90rem;                          /* 1440 */
+  --content-max: 80rem;                       /* 1280 */
+  --gutter: clamp(1.25rem, 5.56vw, 5rem);     /* 20 → 80 */
+  --header-h: clamp(3.75rem, 6.1vw, 5.5rem);  /* 60 → 88 */
+  --grid-gap: 1.5rem;                         /* 24 */
+  --hit-min: 2.75rem;                         /* 44 */
+  /* Cambio de esquema (portada, pasos, navegación): @media (min-width: 50rem) → 800 px */
+
+  /* 05 · Radios y sombras */
+  --radius-field: 0.25rem;    /* 4 */
+  --radius-media: 0.625rem;   /* 10 */
+  --radius-card: 1rem;        /* 16 */
+  --radius-detail: 1.5rem;    /* 24 */
+  --radius-pill: 999px;
+  --radius-round: 50%;
+  --radius-arch: 50cqi;       /* arco = mitad del ancho del contenedor (500 → 250, 466 → 233, 320 → 160) */
+  --shadow-lift: 0 18px 32px -20px var(--texto-45);
+
+  /* 07 · Foco */
+  --focus-width: 2px;
+  --focus-light: var(--color-verde);
+  --focus-on-accent: var(--color-texto);
+  --focus-dark: var(--color-arena);
+  --focus-offset-tight: 2px;  /* campos, acordeón, enlaces en línea */
+  --focus-offset: 3px;        /* botones y enlaces de acción */
+  --focus-offset-loose: 4px;  /* logotipo y navegación */
+
+  /* 06 · Componentes */
+  --btn-h: 3.5rem;            /* 56 */
+  --btn-h-compact: 3.25rem;   /* 52 · portada móvil y barra fija */
+  --btn-h-header: 2.75rem;    /* 44 */
+  --btn-pad-x: 1.75rem;       /* 28 móvil · 2rem (32) escritorio */
+  --field-h: 3.25rem;         /* 52 */
+  --field-pad-x: 0.875rem;    /* 14 */
+  --field-border: 1.5px solid var(--texto-55);
+  --field-border-error: 2px solid var(--color-texto);
+  --check-size: 1.375rem;     /* 22 */
+  --icon-size: 1.5rem;        /* 24 */
+  --underline-offset: 4px;    /* móvil 4px · escritorio 5px */
+
+  /* Movimiento */
+  --ease-soft: cubic-bezier(.2, .7, .2, 1);
+  --dur-hover: 200ms;         /* ease-out */
+  --dur-ui: 240ms;            /* acordeón, barra fija */
+  --dur-reveal: 480ms;        /* aparición: 16px hacia arriba */
+  --lift: -4px;
+
+  /* 08 · Añadidos (medidas del README que no estaban en los tokens) */
+  --space-4xs: 0.125rem;                              /* 2 · CTA ↔ menú móvil */
+  --space-gap-tight: 0.375rem;                        /* 6 · paso móvil */
+  --space-gap-icon: 0.625rem;                         /* 10 · número de paso, pie */
+  --space-gap-contact: 0.875rem;                      /* 14 · lista de contacto */
+  --border: 1px solid var(--texto-12);
+  --border-strong: 1px solid var(--texto-18);
+  --border-on-dark: 1px solid var(--arena-32);
+  --rule-strong: 2px;                                 /* signo +/−, flecha del select */
+  --icon-stroke: 1.5;
+  --underline-offset-tight: 3px;                      /* enlace de la casilla */
+  --font-h3: var(--fw-serif-medium) var(--fs-h3) / var(--lh-h3) var(--font-serif);
+  --z-header: 20;
+
+  /* Cabecera */
+  --btn-pad-x-header: 0.8125rem;                      /* 13 · escritorio 24 */
+  --menu-bar-w: 1.25rem;                              /* 20 */
+  --menu-bar-h: 1.5px;
+  --menu-bar-gap: 5px;
+  --menu-link-h: 3.25rem;                             /* 52 */
+  --nav-gap: clamp(1rem, 3.75vw - 0.875rem, 2.5rem);  /* 16 a 800 → 40 a 1440 (cabe a 800) */
+
+  /* Portada (columna de fotos = 628 × 676 a 1440) */
+  --hero-pad-top: clamp(1rem, 2.78vw, 2.5rem);        /* 16 → 40 */
+  --hero-pad-bottom: clamp(3rem, 6.67vw, 6rem);       /* 48 → 96 */
+  --hero-text-gap: clamp(1.25rem, 2.78vw, 2.5rem);    /* 20 → 40 */
+  --hero-actions-gap: clamp(1.75rem, 3.33vw, 3rem);   /* 28 → 48 */
+  --btn-h-hero: var(--btn-h-compact);                 /* 52 · escritorio 56 */
+  --hero-arch-h-mobile: 20rem;                        /* 320 */
+  --hero-media-ratio: 628 / 676;
+  --hero-arch-x: 12.74%;                              /* 80 de 628 */
+  --hero-arch-ratio: 0.7962;                          /* 500 de 628 */
+  --hero-arch-h: 94.67%;                              /* 640 de 676 */
+  --hero-detail-w: 36.94%;                            /* 232 de 628 */
+  --focus-hero-mobile: 50% 35%;                       /* object-position */
+  --focus-band: 50% 55%;
+
+  /* Rejillas auto-fit y anchos de lectura */
+  --grid-min-fact: 8.75rem;     /* 140 */
+  --grid-min-intro: 30rem;      /* 480 */
+  --grid-min-chip: 18.75rem;    /* 300 */
+  --grid-min-card: 20rem;       /* 320 · servicios y pasos */
+  --grid-min-field: 13.75rem;   /* 220 */
+  --measure: 35rem;             /* 560 · también ancho de lectura del esquema móvil */
+  --measure-hero: 28.75rem;     /* 460 */
+  --measure-faq: 38.75rem;      /* 620 */
+  --measure-step: 21.25rem;     /* 340 */
+  --measure-confirm: 26.25rem;  /* 420 */
+  --faq-intro-basis: 22.5rem;   /* 360 */
+  --booking-cols: minmax(0, 750fr) minmax(0, 466fr); /* formulario | lateral, en px de 1440 */
+
+  /* Secciones */
+  --intro-offset: clamp(0px, 2.36vw, 34px);
+  --chip-gap: clamp(0.75rem, 1.67vw, 1.5rem);         /* 12 → 24 */
+  --circle-sm: 2.75rem;                               /* 44 */
+  --circle-md: 3rem;                                  /* 48 */
+  --circle-lg: 3.5rem;                                /* 56 */
+  --ratio-card: 4 / 3;
+  --card-body-pad-x: 1.125rem;                        /* 18 */
+  --band-h: clamp(12.5rem, 25vw, 22.5rem);            /* 200 → 360 */
+  --steps-gap: clamp(1.75rem, 4.4vw, 4rem);           /* 28 → 64 */
+  --step-title-gap: clamp(0.5rem, 1.1vw, 1rem);       /* 8 → 16 */
+  --faq-summary-min: 4.5rem;                          /* 72 */
+  --faq-sign: 1.25rem;                                /* 20 */
+  --price-pad-top: clamp(5.5rem, 8.89vw, 8rem);       /* 88 → 128 */
+  --price-pad-x: clamp(1.5rem, 2.78vw, 2.5rem);       /* 24 → 40 */
+  --price-pad-bottom: clamp(2.25rem, 3.89vw, 3.5rem); /* 36 → 56 */
+  --price-gap: clamp(0.375rem, 0.56vw, 0.5rem);       /* 6 → 8 */
+  --contact-row-h: 3.75rem;                           /* 60 */
+  --map-h: clamp(12.5rem, 19.4vw, 17.5rem);           /* 200 → 280 */
+  --map-pad-y: clamp(1.125rem, 1.67vw, 1.5rem);       /* 18 → 24 */
+  --map-pad-x: clamp(1.125rem, 1.94vw, 1.75rem);      /* 18 → 28 */
+  --footer-pad-y: clamp(3rem, 4.4vw, 4rem);           /* 48 → 64 */
+  --reveal-range: 10rem;                              /* recorrido de la aparición */
+
+  /* Formulario */
+  --select-pad-end: 2.75rem;                          /* 44 */
+  --select-arrow: 0.5rem;                             /* 8 */
+  --select-arrow-x: 1.125rem;                         /* 18 */
+  --select-arrow-y: 1.1875rem;                        /* 19 */
+  --error-icon: 1.125rem;                             /* 18 */
+  --fs-error-icon: 0.75rem;                           /* 12 */
+  --check-offset: 1px;
+  --confirm-pad-y: clamp(0.5rem, 1.7vw, 1.5rem);      /* 8 → 24 */
+  --check-mark-w: 0.6875rem;                          /* 11 */
+  --check-mark-h: 1.25rem;                            /* 20 */
+  --check-mark-stroke: 2.5px;
+  --check-mark-shift: -2px;
+}
+
+@media (min-width: 50rem) {
+  :root {
+    --lh-h1: 1.06;
+    --ls-h1: -0.025em;
+    --fs-button-header: 0.9375rem;
+    --fs-link: 1rem;
+    --btn-pad-x: 2rem;
+    --underline-offset: 5px;
+    --btn-pad-x-header: var(--space-lg);
+    --btn-h-hero: var(--btn-h);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+}
+
+
+/* 3. Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+img {
+  block-size: auto;
+}
+
+input,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+address {
+  font-style: normal;
+}
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* 4. Base
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background-color: var(--color-arena);
+  color: var(--color-texto);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-sans);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-serif);
+}
+
+h2 {
+  text-wrap: balance;
+}
+
+h3 {
+  font: var(--font-h3);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: var(--underline-offset);
+}
+
+[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus-light);
+  outline-offset: var(--focus-offset-tight);
+}
+
+
+/* 5. Layout
+   ========================================================================== */
+
+/* Contenedor: 1280 en escritorio; en el esquema móvil limita la lectura a 560 */
+.container {
+  --container-max: var(--measure);
+  inline-size: 100%;
+  max-inline-size: calc(var(--container-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--wide {
+  --container-max: var(--content-max);
+}
+
+/* Secciones */
+.section--tinted {
+  background-color: var(--verde-06);
+}
+
+.section--dark {
+  --focus-light: var(--focus-dark);
+  background-color: var(--color-verde);
+  color: var(--color-arena);
+}
+
+.section__inner {
+  display: grid;
+  gap: var(--section-gap);
+  padding-block: var(--section-y);
+}
+
+.section__inner--compact {
+  gap: var(--steps-gap);
+}
+
+/* Rejilla auto-fit: cada modificador fija su ancho mínimo */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--auto-grid-min)), 1fr));
+  gap: var(--grid-gap);
+}
+
+.auto-grid--facts {
+  --auto-grid-min: var(--grid-min-fact);
+  gap: var(--space-md) var(--space-lg);
+}
+
+.auto-grid--intro {
+  --auto-grid-min: var(--grid-min-intro);
+}
+
+.auto-grid--chips {
+  --auto-grid-min: var(--grid-min-chip);
+  gap: var(--chip-gap);
+}
+
+.auto-grid--cards {
+  --auto-grid-min: var(--grid-min-card);
+}
+
+.auto-grid--fields {
+  --auto-grid-min: var(--grid-min-field);
+}
+
+/* Esquema de escritorio: columnas fijas para que todo escale de 800 a 1440 */
+@media (min-width: 50rem) {
+  .container {
+    --container-max: var(--content-max);
+  }
+
+  .auto-grid--intro {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .auto-grid--chips,
+  .auto-grid--cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* 6. Componentes
+   ========================================================================== */
+
+/* Saltar al contenido
+   -------------------------------------------------------------------------- */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-2xs);
+  inset-inline-start: var(--space-2xs);
+  z-index: calc(var(--z-header) + 1);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-arena);
+  color: var(--color-verde);
+  font-weight: var(--fw-sans-semibold);
+}
+
+.skip-link:not(:focus) {
+  clip-path: inset(50%);
+}
+
+
+/* Logotipo
+   -------------------------------------------------------------------------- */
+.logo {
+  font-family: var(--font-serif);
+  font-size: var(--fs-logo);
+  font-weight: var(--fw-serif-medium);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-logo);
+  color: var(--color-verde);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo:focus-visible {
+  outline-offset: var(--focus-offset-loose);
+}
+
+
+/* Cabecera
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background-color: var(--color-arena);
+  border-block-end: var(--border);
+}
+
+.site-header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  block-size: var(--header-h);
+  padding-inline: var(--space-sm) var(--space-2xs);
+}
+
+.site-header__logo {
+  margin-inline-end: auto;
+}
+
+.site-header__toggle {
+  order: 1;
+  display: grid;
+  place-content: center;
+  gap: var(--menu-bar-gap);
+  inline-size: var(--hit-min);
+  block-size: var(--hit-min);
+}
+
+.site-header__toggle-bar {
+  inline-size: var(--menu-bar-w);
+  block-size: var(--menu-bar-h);
+  background-color: var(--color-texto);
+}
+
+.site-header__nav {
+  display: none;
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: 0;
+  padding: var(--space-2xs) var(--space-md) var(--space-md);
+  background-color: var(--color-arena);
+  border-block-end: var(--border);
+}
+
+.site-header__toggle[aria-expanded="true"] + .site-header__nav {
+  display: block;
+}
+
+.site-header__nav-item + .site-header__nav-item {
+  border-block-start: var(--border);
+}
+
+.site-header__nav-link {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--menu-link-h);
+  font-size: var(--fs-nav-menu);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-header__nav-link:hover {
+  text-decoration: underline;
+}
+
+.site-header__nav-link:focus-visible {
+  outline-offset: var(--focus-offset-loose);
+}
+
+@media (min-width: 50rem) {
+  .site-header__inner {
+    gap: var(--nav-gap);
+    padding-inline: var(--gutter);
+  }
+
+  .site-header__toggle {
+    display: none;
+  }
+
+  .site-header__nav,
+  .site-header__toggle[aria-expanded="true"] + .site-header__nav {
+    display: block;
+    position: static;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .site-header__nav-list {
+    display: flex;
+    gap: var(--nav-gap);
+  }
+
+  .site-header__nav-item + .site-header__nav-item {
+    border: 0;
+  }
+
+  .site-header__nav-link {
+    min-block-size: var(--hit-min);
+    font-size: var(--fs-nav);
+  }
+
+  .site-header__cta {
+    margin-inline-start: var(--space-2xs);
+  }
+}
+
+
+/* Botón principal (terracota: solo «Reservar valoración»)
+   -------------------------------------------------------------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--btn-h);
+  padding-inline: var(--btn-pad-x);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-terracota);
+  color: var(--color-texto);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-sans-semibold);
+  line-height: var(--lh-ui);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.button:hover {
+  text-decoration: underline;
+}
+
+.button:focus-visible {
+  outline-color: var(--focus-on-accent);
+  outline-offset: var(--focus-offset);
+}
+
+.button:active {
+  box-shadow: inset 0 0 0 var(--focus-width) var(--color-texto);
+}
+
+.button--compact {
+  min-block-size: var(--btn-h-header);
+  padding-inline: var(--btn-pad-x-header);
+  font-size: var(--fs-button-header);
+}
+
+.button--hero {
+  min-block-size: var(--btn-h-hero);
+}
+
+.button--block {
+  inline-size: 100%;
+}
+
+
+/* Enlace de acción secundario
+   -------------------------------------------------------------------------- */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  color: var(--color-verde);
+  font-size: var(--fs-link);
+  font-weight: var(--fw-sans-semibold);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.text-link:hover {
+  color: var(--color-texto);
+}
+
+.text-link:focus-visible {
+  outline-offset: var(--focus-offset);
+}
+
+.text-link:active {
+  color: var(--color-texto);
+  text-decoration-thickness: var(--rule-strong);
+}
+
+
+/* Icono
+   -------------------------------------------------------------------------- */
+.icon {
+  flex: none;
+  inline-size: var(--icon-size);
+  block-size: var(--icon-size);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--icon-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* Círculo de icono
+   -------------------------------------------------------------------------- */
+.icon-circle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: var(--radius-round);
+  color: var(--color-verde);
+}
+
+.icon-circle--soft {
+  inline-size: var(--circle-md);
+  block-size: var(--circle-md);
+  background-color: var(--verde-12);
+}
+
+/* Anillo arena de 56 con círculo interior de 44 */
+.icon-circle--badge {
+  inline-size: var(--circle-lg);
+  block-size: var(--circle-lg);
+  border: calc((var(--circle-lg) - var(--circle-sm)) / 2) solid var(--color-arena);
+  background: linear-gradient(var(--verde-12), var(--verde-12)) var(--color-arena);
+  background-clip: padding-box;
+}
+
+.icon-circle--outline {
+  inline-size: var(--circle-sm);
+  block-size: var(--circle-sm);
+  border: var(--border-on-dark);
+  color: inherit;
+}
+
+.icon-circle--solid {
+  inline-size: var(--circle-lg);
+  block-size: var(--circle-lg);
+  background-color: var(--color-verde);
+  color: var(--color-arena);
+}
+
+@media (min-width: 50rem) {
+  .icon-circle--outline {
+    inline-size: var(--circle-lg);
+    block-size: var(--circle-lg);
+  }
+}
+
+
+/* Etiqueta de sección
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-sans-semibold);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-verde);
+}
+
+.eyebrow--on-dark {
+  color: inherit;
+}
+
+
+/* Encabezado de sección
+   -------------------------------------------------------------------------- */
+.section-head {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.section-head__title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-heading);
+}
+
+
+/* Portada
+   -------------------------------------------------------------------------- */
+.hero__inner {
+  padding-block: var(--hero-pad-top) var(--hero-pad-bottom);
+}
+
+.hero__media {
+  container-type: inline-size;
+  position: relative;
+}
+
+.hero__arch {
+  inline-size: 100%;
+  block-size: var(--hero-arch-h-mobile);
+  object-fit: cover;
+  object-position: var(--focus-hero-mobile);
+  border-radius: var(--radius-arch) var(--radius-arch) var(--radius-card) var(--radius-card);
+}
+
+.hero__detail {
+  display: none;
+}
+
+.hero__content {
+  margin-block-start: var(--space-xl);
+}
+
+.hero__title {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
+}
+
+.hero__title-line {
+  display: block;
+}
+
+.hero__title-line--accent {
+  font-style: italic;
+  color: var(--color-verde);
+}
+
+.hero__lead {
+  max-inline-size: var(--measure-hero);
+  margin-block-start: var(--hero-text-gap);
+  font-size: var(--fs-lead);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  margin-block-start: var(--hero-actions-gap);
+}
+
+@media (min-width: 50rem) {
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    column-gap: var(--grid-gap);
+  }
+
+  .hero__media {
+    aspect-ratio: var(--hero-media-ratio);
+  }
+
+  .hero__arch {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: var(--hero-arch-x);
+    inline-size: calc(var(--hero-arch-ratio) * 100%);
+    block-size: var(--hero-arch-h);
+    border-radius:
+      calc(var(--hero-arch-ratio) * var(--radius-arch))
+      calc(var(--hero-arch-ratio) * var(--radius-arch))
+      var(--radius-card)
+      var(--radius-card);
+  }
+
+  .hero__detail {
+    display: block;
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inline-size: var(--hero-detail-w);
+    padding: var(--space-2xs);
+    background-color: var(--color-arena);
+    border-radius: var(--radius-detail);
+  }
+
+  .hero__detail-img {
+    inline-size: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+  }
+
+  .hero__content {
+    margin-block-start: 0;
+    padding: 0 0 var(--space-2xl) var(--space-lg);
+  }
+
+  .hero__actions {
+    flex-flow: row wrap;
+    align-items: center;
+    gap: var(--space-3xs) var(--space-xl);
+  }
+}
+
+
+/* Franja de datos clave
+   -------------------------------------------------------------------------- */
+.key-facts {
+  background-color: var(--verde-06);
+  border-block: var(--border);
+}
+
+.key-facts__list {
+  padding-block: var(--data-pad-y);
+}
+
+.key-facts__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--fs-data);
+  line-height: var(--lh-ui);
+}
+
+.key-facts__icon {
+  color: var(--color-verde);
+}
+
+
+/* Para quién es
+   -------------------------------------------------------------------------- */
+.audience__head {
+  max-inline-size: var(--measure);
+}
+
+.audience__lead {
+  max-inline-size: var(--measure);
+  padding-block-start: var(--intro-offset);
+  font-size: var(--fs-lead);
+}
+
+
+/* Chip de molestia
+   -------------------------------------------------------------------------- */
+.chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--chip-pad-y) var(--chip-pad-x);
+  border: var(--border-strong);
+  border-radius: var(--radius-card);
+}
+
+.chip__text {
+  font-size: var(--fs-chip);
+  line-height: var(--lh-ui);
+}
+
+
+/* Tarjeta de servicio
+   -------------------------------------------------------------------------- */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--card-inset) var(--card-inset) var(--card-pad-bottom);
+  background-color: var(--color-arena);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  transition:
+    transform var(--dur-hover) ease-out,
+    box-shadow var(--dur-hover) ease-out;
+}
+
+.service-card__img {
+  inline-size: 100%;
+  aspect-ratio: var(--ratio-card);
+  object-fit: cover;
+  border-radius: var(--radius-media);
+  background-color: var(--verde-12);
+}
+
+.service-card__badge {
+  position: relative;
+  margin: calc(var(--circle-lg) / -2) 0 0 var(--card-body-pad-x);
+}
+
+.service-card__body {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--card-body-pad-x) 0;
+}
+
+.service-card__title {
+  color: var(--color-verde);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover {
+    transform: translateY(var(--lift));
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+
+/* Banda de imagen
+   -------------------------------------------------------------------------- */
+.image-band__img {
+  inline-size: 100%;
+  block-size: var(--band-h);
+  object-fit: cover;
+  object-position: var(--focus-band);
+}
+
+
+/* Pasos
+   -------------------------------------------------------------------------- */
+.steps {
+  row-gap: 0;
+}
+
+/* Móvil: icono | número + título, y el texto debajo */
+.step {
+  display: grid;
+  grid-template-columns: var(--circle-sm) var(--space-sm) auto var(--space-gap-icon) 1fr;
+  align-items: baseline;
+  row-gap: var(--space-gap-tight);
+  padding-block: var(--space-md);
+  border-block-start: var(--border-on-dark);
+}
+
+.step:last-child {
+  padding-block-end: 0;
+}
+
+.step__icon {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+
+.step__number {
+  grid-column: 3;
+  font-family: var(--font-serif);
+  font-size: var(--fs-step-inline);
+  font-style: italic;
+  line-height: var(--lh-none);
+}
+
+.step__title {
+  grid-column: 5;
+}
+
+.step__text {
+  grid-column: 3 / -1;
+  max-inline-size: var(--measure-step);
+}
+
+@media (min-width: 50rem) {
+  .steps {
+    row-gap: var(--space-2xl);
+  }
+
+  .step {
+    grid-template-columns: auto 1fr auto;
+    align-content: start;
+    align-items: start;
+    row-gap: var(--space-xs);
+    padding-block: var(--space-lg) 0;
+  }
+
+  .step__number {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: var(--fs-step);
+  }
+
+  .step__icon {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .step__title {
+    grid-column: 1 / -1;
+    margin-block-start: var(--step-title-gap);
+  }
+
+  .step__text {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* Preguntas frecuentes (details / summary nativos)
+   -------------------------------------------------------------------------- */
+.faq {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--section-gap) var(--grid-gap);
+}
+
+.faq__intro {
+  flex: 1 1 var(--faq-intro-basis);
+}
+
+.faq__list {
+  flex: 2 1 var(--measure);
+  border-block-end: var(--border-strong);
+}
+
+.faq__item {
+  border-block-start: var(--border-strong);
+}
+
+@media (min-width: 50rem) {
+  .faq {
+    flex-wrap: nowrap;
+  }
+}
+
+.faq__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  min-block-size: var(--faq-summary-min);
+  padding-block: var(--space-md);
+  cursor: pointer;
+}
+
+.faq__sign {
+  position: relative;
+  flex: none;
+  inline-size: var(--faq-sign);
+  block-size: var(--faq-sign);
+  color: var(--color-verde);
+}
+
+.faq__sign::before,
+.faq__sign::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(50% - var(--rule-strong) / 2);
+  block-size: var(--rule-strong);
+  background-color: currentColor;
+  transition: transform var(--dur-ui) var(--ease-soft);
+}
+
+.faq__sign::after {
+  transform: rotate(90deg);
+}
+
+.faq__item[open] .faq__sign::after {
+  transform: rotate(180deg);
+}
+
+.faq__answer {
+  max-inline-size: var(--measure-faq);
+  padding: 0 calc(var(--faq-sign) + var(--space-lg)) var(--card-pad-bottom) 0;
+}
+
+@supports (interpolate-size: allow-keywords) and selector(::details-content) {
+  .faq__list {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq__item::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size var(--dur-ui) var(--ease-soft),
+      content-visibility var(--dur-ui) allow-discrete;
+  }
+
+  .faq__item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+
+/* Reserva: rejilla de formulario, precio, contacto y mapa
+   -------------------------------------------------------------------------- */
+.booking {
+  display: grid;
+  gap: var(--section-gap);
+}
+
+.booking__card {
+  padding: var(--form-pad);
+  background-color: var(--color-arena);
+  border: var(--border);
+  border-radius: var(--radius-card);
+}
+
+/* En móvil el lateral se disuelve para que el precio vaya antes del formulario */
+.booking__aside {
+  display: contents;
+}
+
+.booking__price {
+  order: -1;
+}
+
+@media (min-width: 50rem) {
+  .booking {
+    grid-template-columns: var(--booking-cols);
+    align-items: start;
+  }
+
+  .booking__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .booking__price {
+    order: 0;
+  }
+
+  .booking__map {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* Tarjeta de precio en arco
+   -------------------------------------------------------------------------- */
+.price-card {
+  container-type: inline-size;
+}
+
+.price-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--price-gap);
+  padding: var(--price-pad-top) var(--price-pad-x) var(--price-pad-bottom);
+  background-color: var(--color-verde);
+  border-radius: var(--radius-arch) var(--radius-arch) var(--radius-card) var(--radius-card);
+  color: var(--color-arena);
+  text-align: center;
+}
+
+.price-card__amount {
+  font-family: var(--font-serif);
+  font-size: var(--fs-price);
+  line-height: var(--lh-price);
+  letter-spacing: var(--ls-heading);
+}
+
+
+/* Formulario de reserva
+   -------------------------------------------------------------------------- */
+.booking-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.booking-form__field {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2xs);
+}
+
+.booking-form__label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-sans-semibold);
+  line-height: var(--lh-ui);
+}
+
+.booking-form__input {
+  inline-size: 100%;
+  block-size: var(--field-h);
+  padding-inline: var(--field-pad-x);
+  background-color: var(--color-arena);
+  border: var(--field-border);
+  border-radius: var(--radius-field);
+}
+
+.booking-form__input[aria-invalid="true"] {
+  border: var(--field-border-error);
+}
+
+.booking-form__input--select {
+  padding-inline-end: var(--select-pad-end);
+  appearance: none;
+  cursor: pointer;
+}
+
+.booking-form__select-wrap {
+  position: relative;
+}
+
+.booking-form__select-wrap::after {
+  content: "";
+  position: absolute;
+  inset-block-start: var(--select-arrow-y);
+  inset-inline-end: var(--select-arrow-x);
+  inline-size: var(--select-arrow);
+  block-size: var(--select-arrow);
+  border: solid var(--color-texto);
+  border-width: 0 var(--rule-strong) var(--rule-strong) 0;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.booking-form__check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.booking-form__checkbox {
+  flex: none;
+  inline-size: var(--check-size);
+  block-size: var(--check-size);
+  margin-block-start: var(--check-offset);
+  accent-color: var(--color-verde);
+}
+
+.booking-form__checkbox:focus-visible {
+  outline-offset: var(--focus-offset);
+}
+
+.booking-form__check-label {
+  font-size: var(--fs-check);
+  line-height: var(--lh-small);
+}
+
+.booking-form__link {
+  color: var(--color-verde);
+  text-underline-offset: var(--underline-offset-tight);
+}
+
+.booking-form__error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-sans-semibold);
+  line-height: var(--lh-ui);
+}
+
+.booking-form__error::before {
+  content: "!"; /* respaldo para navegadores sin texto alternativo en content */
+  content: "!" / "";
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: var(--error-icon);
+  block-size: var(--error-icon);
+  border-radius: var(--radius-round);
+  background-color: var(--color-texto);
+  color: var(--color-arena);
+  font-size: var(--fs-error-icon);
+  line-height: var(--lh-none);
+}
+
+
+/* Confirmación del envío
+   -------------------------------------------------------------------------- */
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding-block: var(--confirm-pad-y);
+}
+
+.confirmation__icon::before {
+  content: "";
+  inline-size: var(--check-mark-w);
+  block-size: var(--check-mark-h);
+  border: solid currentColor;
+  border-width: 0 var(--check-mark-stroke) var(--check-mark-stroke) 0;
+  transform: translateY(var(--check-mark-shift)) rotate(45deg);
+}
+
+.confirmation__title {
+  margin-block-start: var(--space-2xs);
+  color: var(--color-verde);
+}
+
+/* Recibe el foco por script al confirmar: no es un control, no lleva contorno */
+.confirmation__title:focus {
+  outline: none;
+}
+
+.confirmation__text {
+  max-inline-size: var(--measure-confirm);
+}
+
+
+/* Lista de contacto
+   -------------------------------------------------------------------------- */
+.contact-list {
+  border-block-end: var(--border-strong);
+}
+
+.contact-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap-contact);
+  min-block-size: var(--contact-row-h);
+  border-block-start: var(--border-strong);
+}
+
+.contact-list__icon {
+  color: var(--color-verde);
+}
+
+.contact-list__link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  text-decoration: none;
+}
+
+.contact-list__link:hover {
+  text-decoration: underline;
+}
+
+/* Pie: en línea, 14 px y sin divisores */
+.contact-list--compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-xl);
+  border: 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+.contact-list--compact .contact-list__item {
+  gap: var(--space-gap-icon);
+  min-block-size: 0;
+  border: 0;
+}
+
+
+/* Tarjeta de mapa
+   -------------------------------------------------------------------------- */
+.map-card {
+  display: block;
+  overflow: hidden;
+  background-color: var(--color-arena);
+  border: var(--border-strong);
+  border-radius: var(--radius-card);
+  color: var(--color-verde);
+  text-decoration: none;
+}
+
+.map-card:focus-visible {
+  outline-offset: var(--focus-offset);
+}
+
+.map-card__media {
+  display: block;
+  block-size: var(--map-h);
+}
+
+.map-card__svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.map-card__svg--desktop {
+  display: none;
+}
+
+.map-card__door {
+  fill: var(--color-arena);
+}
+
+.map-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-lg);
+  padding: var(--map-pad-y) var(--map-pad-x);
+  border-block-start: var(--border);
+}
+
+.map-card__address {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font: var(--font-h3);
+}
+
+.map-card__cta {
+  font-size: var(--fs-body);
+}
+
+.map-card:hover .map-card__cta {
+  color: var(--color-texto);
+}
+
+@media (min-width: 50rem) {
+  .map-card__svg--desktop {
+    display: block;
+  }
+
+  .map-card__svg--mobile {
+    display: none;
+  }
+}
+
+
+/* Pie
+   -------------------------------------------------------------------------- */
+.site-footer {
+  border-block-start: var(--border);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-xl) var(--space-3xl);
+  padding-block: var(--footer-pad-y);
+}
+
+.site-footer__brand {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-md);
+}
+
+.site-footer__meta {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2xs);
+  font-size: var(--fs-small);
+}
+
+.site-footer__legal {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.site-footer__legal-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+}
+
+
+/* 7. Utilidades
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Aparición al desplazar: solo CSS y solo si el navegador lo soporta */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timing-function: var(--ease-soft);
+      animation-timeline: view();
+      animation-range: entry 0% entry var(--reveal-range);
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-sm));
+  }
+}
