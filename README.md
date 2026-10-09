@@ -18,6 +18,8 @@ assets/fonts/              Fraunces e Inter en woff2, subconjunto latino
 favicon.svg · favicon.ico · apple-touch-icon.png
 robots.txt · sitemap.xml · llms.txt · vercel.json
 textos-nuevos.md           textos no literales del brief, pasados por el humanizador
+prompts.md · prompt-maestro.md · CLAUDE.md   prompts y reglas del proceso con IA
+.vercelignore              deja la documentación del proceso fuera de la web publicada
 ```
 
 ## Decisiones técnicas
@@ -146,5 +148,6 @@ En local, Lighthouse da 98 de rendimiento porque el servidor no comprime ni cach
 
 - Diseño: Claude Design.
 - Código: Claude Code (Claude Opus 5.5). Todo el código y los archivos se generaron a partir de prompts.
+- Prompts principales: [`prompts.md`](prompts.md) (diseño) y [`prompt-maestro.md`](prompt-maestro.md) (desarrollo).
 - Humanizador: Undetectable.ai.
 - Verificación: validador del W3C, validador de schema.org, Lighthouse y Playwright (Chromium y WebKit), instalados en una carpeta temporal fuera del proyecto: no dejan rastro en el repositorio.
